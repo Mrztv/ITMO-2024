@@ -1,0 +1,58 @@
+#header p {
+    font-family: fantasy;
+    letter-spacing: 1px;
+    color: chocolate;
+    font-size: 2em;
+}
+
+#header p::first-line {
+    color: rgb(0, 100, 100);
+}
+
+div#graph{
+    padding: 0;
+    overflow: hidden    ;
+}
+
+
+#graph>img{
+    display: block;
+}
+
+label {
+    display: block;
+    margin-bottom: 1%;
+}
+
+#YText{
+    border: #777;
+    border-radius: 1px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#YText:focus{
+    border: lightblue;
+    border-radius: 1px;
+}
+
+input[type="radio"] {
+    margin-right: 1%;
+}
+
+input[type="submit"]:hover{
+    background-color: orange;
+}
+
+div#table{
+    margin-top: 3%;
+}
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table td{
+    border: black solid 1px;
+}

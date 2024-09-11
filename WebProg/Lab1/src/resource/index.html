@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <link rel="stylesheet" href="style.css">
+    <title>Mirzaitov Timur</title>
+    
+</head>
+<body>
+    <div id="header">
+        <p>Mirzaitov Timur <br> P3112, 409145</p>
+    </div>
+    <div id="graph">
+        <img src="Lab1.png">
+    </div>
+    <div id="form">
+        <label for="XSelect">X: 
+            <select name="XSelect" id="XSelect">
+                <option value="-2">-2</option>
+                <option value="-1.5">-1.5</option>
+                <option value="-1">-1</option>
+                <option value="-0.5">-0.5</option>
+                <option value="0">0</option>
+                <option value="0.5">0.5</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+            </select>
+        </label>
+        <label for="YText">Y: 
+            <input type="text" placeholder="Y value" name="YText" id="YText"></textarea>
+        </label>
+        <label for="RRadio">R:
+            1<input type="radio" name="RRadio" class="RRadio" value="1">
+            2<input type="radio" name="RRadio" class="RRadio" value="2">
+            3<input type="radio" name="RRadio" class="RRadio" value="3">
+            4<input type="radio" name="RRadio" class="RRadio" value="4">
+            5<input type="radio" name="RRadio" class="RRadio" value="5">
+        </label>
+        <input type="submit" value="Send" onclick="submitFunc()">
+    </div>
+    <div id="table">
+        <table id="resulttable">
+            <tr>
+                <td>X</td>
+                <td>Y</td>
+                <td>R</td>
+                <td>Status</td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
