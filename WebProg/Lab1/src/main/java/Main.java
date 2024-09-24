@@ -4,10 +4,14 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
         while (new FCGIInterface().FCGIaccept() >= 0) {
+            Date startTime = new Date();
             String content = null;
 
             /*try {
@@ -27,32 +31,39 @@ public class Main {
             r = Double.parseDouble(split[3]);
 
             content = x + "\n" + y + "\n" + r + "\n";
-
+            
+            
+            String status = "";
             if(x==0 && y == 0){
-                content += "hit";
+                status += "hit";
             }
-            else if (x<0 && y<0){
-                content += "miss";
-            } else if (x>0 && y>0) {
+            else if (x<=0 && y<=0){
+                status += "miss";
+            } else if (x>=0 && y>=0) {
                 if(x<=r/2 && y<=r){
-                    content += "hit";
-                }else content += "miss";
-            } else if (x<0 && y>0) {
+                    status += "hit";
+                }else status += "miss";
+            } else if (x<=0 && y>=0) {
                 if(r*r >= x*x + y*y){
-                    content += "hit";
-                }else content += "miss";
-            } else if (x>0 && y<0) {
+                    status += "hit";
+                }else status += "miss";
+            } else if (x>=0 && y<=0) {
                 double func = 2*x-r;
                 if(func <= y){
-                    content += "hit";
-                }else content += "miss";
+                    status += "hit";
+                }else status += "miss";
             } else {
-                content += "miss";
+                status += "miss";
             }
+
+            content += "\n" + (new Date());
+            content += "\n" + (new Date().getTime()-startTime.getTime());
+
+            content = convert(String.valueOf(x), String.valueOf(y), String.valueOf(r), status, new Date().toString(), String.valueOf(new Date().getTime()-startTime.getTime()));
 
             String httpResponse = """
             HTTP/1.1 200 OK
-            Content-Type: text/html
+            Content-Type: text/json
             Content-Length: %d
             Access-Control-Allow-Origin: *
             
@@ -67,17 +78,15 @@ public class Main {
         return FCGIInterface.request.params.getProperty("QUERY_STRING");
     }
 
-    private static String readRequestBody() throws IOException {
-        FCGIInterface.request.inStream.fill();
-        var contentLength = FCGIInterface.request.inStream.available();
-        var buffer = ByteBuffer.allocate(contentLength);
-        var readBytes =
-                FCGIInterface.request.inStream.read(buffer.array(), 0,
-                        contentLength);
-        var requestBodyRaw = new byte[readBytes];
-        buffer.get(requestBodyRaw);
-        buffer.clear();
-        return new String(requestBodyRaw, StandardCharsets.UTF_8);
+    private static String convert(String ... strings){
+        String answer = "{";
+        answer += "\n\t\"X\": " + strings[0];
+        answer += ",\n\t\"Y\": " + strings[1];
+        answer += ",\n\t\"R\": " + strings[2];
+        answer += ",\n\t\"Status\": \"" + strings[3];
+        answer += "\",\n\t\"Time\": \"" + strings[4];
+        answer += "\",\n\t\"Run\": " + strings[5];
+        answer += "\n}";
+        return answer;
     }
-
 }

@@ -7,11 +7,12 @@ let xmlhttp = new XMLHttpRequest()
 
 xmlhttp.onload = function(){
     console.log(xmlhttp.responseText)
+    let responseJSON = JSON.parse(xmlhttp.responseText)
     let x, y, r, status
-    x = xmlhttp.responseText.split("\n")[0]
-    y = xmlhttp.responseText.split("\n")[1]
-    r = xmlhttp.responseText.split("\n")[2]
-    status = xmlhttp.responseText.split("\n")[3]
+    x = responseJSON.X
+    y = responseJSON.Y
+    r = responseJSON.R
+    status = responseJSON.Status
     newRow(x, y, r, status)
 }
 
@@ -71,9 +72,9 @@ function submitFunc(){
     {
         //console.log(true)
         let url = new URL("http://localhost:24585/fcgi-bin/Lab1.jar");
-        url.searchParams.append("x", selectx.value)
-        url.searchParams.append("y", ytext.value)
-        url.searchParams.append("r", rradio.value)
+        url.searchParams.append("X", selectx.value)
+        url.searchParams.append("Y", ytext.value)
+        url.searchParams.append("R", rradio.value)
         xmlhttp.open("GET", url, true)
         xmlhttp.send(null)
     }
